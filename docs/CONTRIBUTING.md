@@ -37,3 +37,4 @@ conda activate fhv_fare_env
 
 # 3. Run notebook
 jupyter notebook notebooks/01_fare_elasticity.ipynb
+For small-scale testing, use the preloaded sample_data/ folder.
