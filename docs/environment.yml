@@ -1,0 +1,22 @@
+name: fhv_fare_env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pandas=2.1.0
+  - numpy=1.26.0
+  - pyarrow=15.0.0
+  - statsmodels=0.14.0
+  - scikit-learn=1.4.0
+  - matplotlib=3.8.0
+  - seaborn=0.13.0
+  - plotly=5.20.0
+  - jupyterlab=4.1.0
+  - notebook=7.1.0
+  - ipykernel=6.29.0
+  - openpyxl=3.1.2
+  - tqdm=4.66.0
+  - pip
+  - pip:
+      - pyreadstat==1.2.5
