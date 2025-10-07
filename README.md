@@ -81,3 +81,100 @@ This analysis was developed on **Microsoft Fabric** trial capacity and leveraged
 ---
 
 ## 🧩 Repo structure (recommended)
+
+```
+nyc-fhv-fare-elasticity/
+├── notebooks/ ← Jupyter notebooks (analysis & models)
+│ ├── 01_fare_elasticity.ipynb
+│ └── 01_fare_elasticity.html ← rendered notebook (optional)
+├── reports/ ← CSVs and regression summary tables
+│ ├── summary_stats.csv
+│ ├── levels_coef_table.csv
+│ └── interaction_coefs.csv
+├── docs/ ← Presentation, CONTRIBUTING & CODE_OF_CONDUCT placeholders
+│ ├── presentation.md
+│ ├── CONTRIBUTING.md
+│ └── CODE_OF_CONDUCT.md
+├── images/ ← PNGs, screenshots, figure assets (placeholders)
+│ ├── eda_scatter_miles_fare.png
+│ └── elasticity_bar.png
+├── sample_data/ ← small reproducible sample (source & transformed)
+│ ├── sample_1k.parquet
+│ └── sample_transformed_1k.parquet
+├── README.md
+├── requirements.txt
+└── LICENSE (MIT)
+
+```
+
+---
+
+## 🛠️ Quickstart — run locally (using sample_data)
+
+```bash
+# 1. Clone
+git clone https://github.com/<yourusername>/nyc-fhv-fare-elasticity.git
+cd nyc-fhv-fare-elasticity
+
+# 2. Install (recommended virtualenv)
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+
+# 3. Open the notebook (works with sample_data)
+jupyter notebook notebooks/01_fare_elasticity.ipynb
+# or view rendered HTML
+open notebooks/01_fare_elasticity.html
+
+```
+---
+
+## 🤝 Contributing
+
+We welcome contributions. To get started:
+
+1. Fork the repo and create a branch: `feature/<your-idea>`
+2. Make changes, add tests or a small notebook demonstrating your idea
+3. Add or update artifacts in `images/` and `reports/` as needed (respect naming conventions)
+4. Open a PR describing your change and link any updated notebook outputs
+
+**Good first issues**
+
+* Borough-level elasticity analysis (split by borough)
+* Interactive Plotly version of the elasticity plot (in `images/` + `notebooks/`)
+* Add unit/integration tests for data transformation script(s)
+
+**Docs:** `docs/CONTRIBUTING.md` and `docs/CODE_OF_CONDUCT.md` are placeholders — please update with contribution rules and behavior guidelines when you're ready.
+
+---
+
+## 📦 Dependencies
+
+Minimum dependencies (example; pin exact versions in `requirements.txt`):
+
+* Python 3.10+
+* pandas, numpy, statsmodels, matplotlib, jupyterlab, pyarrow
+
+---
+
+## 🧾 License
+
+MIT License — see [`LICENSE`](LICENSE)
+
+---
+
+## 📫 Contact
+
+Anil — `anil@example.com` · GitHub: `github.com/<yourusername>`
+
+---
+
+## 🏁 Closing Note
+
+* Distance largely explains fare variation; time matters but less so
+* Elasticities and interaction tests show distance becomes more important for long trips
+* Repo is reproducible with `sample_data/`; enterprise execution used MS Fabric (OneLake + Delta + Notebooks + Pipelines)
+* Add visuals to `images/` and tables to `reports/` after rerunning notebooks and push them to the repo
+
+
+
