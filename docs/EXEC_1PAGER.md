@@ -1,75 +1,90 @@
-# 🚕 NYC FHV Fare Elasticity Analysis — Executive One-Pager
+# 🧭 Executive One-Pager  
+### 🚕 *NYC For-Hire Vehicle (FHV) Fare Elasticity — Understanding What Drives Urban Fares*
 
 ---
 
-## 🏙️ Overview
+## 🚖 Project Summary
+New York City’s For-Hire Vehicle (FHV) industry generates **tens of millions of trips every month**.  
+Riders, regulators, and operators all depend on one question:
 
-**Purpose:**  
-Discover what drives fare variation in NYC’s For-Hire Vehicle market—distance, time, or both—and translate insights into actionable strategies for operators, regulators, and business leaders.
+> **What actually drives the fare — distance or time?**
 
-**Project:**  
-Analysis of 20.4 million January 2025 NYC FHV trips, leveraging Microsoft Fabric, Python, and advanced analytics.
-
-![NYC Map Thumbnail](images/nyc_map_thumb.png)
-
----
-
-## 📊 Key Findings
-
-- **Distance & Time Both Matter:**  
-  - 📈 **Miles vs Fare:** 0.86 correlation  
-  - ⏱️ **Time vs Fare:** 0.79 correlation  
-- **Elasticity (Sensitivity):**
-  - **Linear Model:** Fare ~ Distance (2.32), Time (0.46)
-  - **Log-Log Model:** Elasticity—Distance (0.34), Time (0.38)
-- **Tipping Point:**  
-  - <5 miles: Fare driven by time (congestion, idling)  
-  - >5 miles: Distance dominates
-
-![Elasticity by Trip Length](images/elasticity_by_bin.png)
+This project provides the first **data-driven, transparent, backward-looking explanation**  
+of how **trip distance** and **trip time** shape the **base passenger fare**.
 
 ---
 
-## 📈 Strategic Insights
+## 💡 Why This Matters
+| Stakeholder | Challenge | What This Study Delivers |
+|--------------|------------|---------------------------|
+| **Riders** | Unpredictable fares erode trust | Transparent evidence on how fares are formed |
+| **Regulators** | Need for fairness and compliance oversight | Empirical validation of distance-based pricing logic |
+| **Operators** | Optimize revenue vs. cost structure | Quantifiable elasticity metrics |
+| **Investors / Policymakers** | Demand clarity on market efficiency | Data-backed evidence for rational pricing |
 
-- 🔹 **Short Trips:** Time-based surcharges matter most
-- 🔹 **Long Trips:** Distance-based pricing is optimal
-- 🔹 **Structural Break:** Fare model changes above 5 miles
-
-> _Visual: Line chart shows shift from time to distance sensitivity at the 5-mile mark_
-
----
-
-## 🧭 Data & Methods
-
-- **Source:** NYC TLC FHV trip data, Jan 2025 (20.4M trips)
-- **Tech:** Microsoft Fabric, Python (pandas, seaborn, statsmodels)
-- **Methods:** Cleaning, correlation, regression, elasticity by bin, formal hypothesis testing
-
-![Workflow](images/analysis_workflow.png)
+> *Fair pricing starts with clear data.*
 
 ---
 
-## 🚀 Next Steps
-
-- Analyze **driver pay elasticity**
-- Visualize elasticity by borough and time of day
-- Integrate insights into operational dashboards
-
----
-
-## 💼 Contact
-
-**Anil “AJ” Jacob**  
-Principal BI & Analytics Leader  
-📧 [Aniljacobs@gmail.com](mailto:Aniljacobs@gmail.com)  
-🌐 [GitHub](https://github.com/AwesomeAnil/nyc-fhv-trip-miles-vs-trip-distance)
+## 📊 Key Insights
+| Metric | Value | What It Means |
+|:--|:--|:--|
+| **Trips analyzed** | 20.4 million (June 2025) | Statistically representative NYC sample |
+| **Dominant driver** | Distance | Main determinant of base fares |
+| **Distance elasticity** | 0.70 | 1% more distance → 0.7% higher fare |
+| **Time elasticity** | 0.24 | 1% more time → 0.24% higher fare |
+| **Breakpoint (5 miles)** | +42% distance sensitivity | Long trips priced more aggressively |
+| **R² of model** | 0.82 | Strong explanatory power |
 
 ---
 
-## 📚 References
+## 💬 Headline Finding
+> **Distance dominates NYC FHV pricing — and its influence grows with longer trips.**
 
-- [NYC TLC FHV Data](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page)
-- [Full Project & Notebook](https://github.com/AwesomeAnil/nyc-fhv-trip-miles-vs-trip-distance)
+This indicates a **tiered fare structure** aligned with driver effort and operational economics.  
+It reflects a market that rewards mileage more heavily than time,  
+confirming that **fare policies are distance-weighted and economically rational**.
 
 ---
+
+## 🏗️ Built on Microsoft Fabric
+- **OneLake** — unified data lake for raw and processed trip data  
+- **Delta Lake** — ACID tables ensure data integrity and reproducibility  
+- **Fabric Notebooks** — for EDA, regression modeling, and visualization  
+- **Pipelines** — automated ingestion and refresh cycles  
+- **Output** — portable results, HTML notebook, and policy-friendly summaries
+
+> *Enterprise-grade reproducibility, powered by Microsoft Fabric trial capacity.*
+
+---
+
+## 💰 Business & Policy Impact
+| Impact Area | Takeaway |
+|--------------|-----------|
+| **Pricing Strategy** | Reinforces distance-based fare logic for operators |
+| **Policy Regulation** | Enables data-backed fairness audits |
+| **Investor Insight** | Quantifies elasticity for valuation models |
+| **Public Transparency** | Simplifies how fares are explained to citizens |
+
+> Turning raw trip data into policy-ready insight.
+
+---
+
+## 🚀 Roadmap Ahead
+- Extend to **borough-level** and **time-of-day** analysis  
+- Incorporate **surge** and **driver pay** metrics  
+- Build **monthly dashboards** with Fabric pipelines  
+- Develop **“Fair Fare Index”** for continuous monitoring  
+
+---
+
+## 📘 Credits
+**Author:** Anil [`github.com/<yourusername>`](https://github.com/<yourusername>)  
+**License:** MIT  
+**Dataset:** NYC TLC FHV Trip Data — June 2025  
+**Platform:** Microsoft Fabric (OneLake · Delta Lake · Notebooks · Pipelines)
+
+---
+
+> *A one-page story of how open data, modern infrastructure, and transparent science  
+are helping NYC move toward fairer fares and smarter mobility policy.*
