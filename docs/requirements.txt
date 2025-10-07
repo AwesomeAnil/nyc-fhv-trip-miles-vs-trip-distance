@@ -1,0 +1,32 @@
+
+---
+
+## ⚙️ 2. `requirements.txt`
+
+> Keep this lightweight for reproducibility on Fabric, local Jupyter, or GitHub Codespaces.
+
+```txt
+# Core
+pandas>=2.1.0
+numpy>=1.26.0
+pyarrow>=15.0.0
+
+# Statistical Modeling
+statsmodels>=0.14.0
+scikit-learn>=1.4.0
+
+# Visualization
+matplotlib>=3.8.0
+seaborn>=0.13.0
+plotly>=5.20.0
+
+# Jupyter Environment
+notebook>=7.1.0
+ipykernel>=6.29.0
+
+# Data I/O
+openpyxl>=3.1.2
+pyreadstat>=1.2.5
+
+# Utility
+tqdm>=4.66.0
