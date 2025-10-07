@@ -1,237 +1,83 @@
 # 🚕 NYC Taxi Fare Elasticity Analysis using Microsoft Fabric
 
-### 🧭 End-to-End Interpretive Analytics Workflow on Real-World Data
-This project explores **New York City’s high-volume For-Hire Vehicle (FHV)** dataset to determine whether **trip distance** or **trip time** is a *stronger structural predictor* of **base passenger fares**.  
-It builds a full **end-to-end analytics pipeline in Microsoft Fabric**, applying exploratory data analysis, log–log regression, and comparative elasticity modeling to derive interpretable insights.
+![License](https://img.shields.io/badge/license-MIT-blue) ![Python](https://img.shields.io/badge/python-3.10%2B-green) ![Notebooks](https://img.shields.io/badge/notebooks-Jupyter-orange)
+
+**One-line impact:** *Distance is the primary determinant of NYC FHV base fares; its influence strengthens for trips > 5 mi.*
 
 ---
 
-## 📦 Project Overview
+## 📌 Key numbers (hero card)
 
-### 🎯 Objective
-To quantitatively assess whether **trip distance** or **trip duration** better explains fare variation in NYC’s For-Hire Vehicle data, using **log–log regression** to measure **fare elasticity** and **model fit (R²)** as indicators of explanatory power.
-
-This is an **interpretive and diagnostic analytics exercise**, not a fare prediction project.
-
-### 🏗️ Tech Stack
-- **Microsoft Fabric** — Lakehouse, Notebooks, Data Pipelines, ML environment  
-- **Python** — `pandas`, `numpy`, `scikit-learn`, `matplotlib`, `seaborn`  
-- **Delta Tables** — scalable, versioned data storage  
-- **Power BI** — visualization and storytelling  
-
-### 📂 Folder Structure
-```
-├── docs/ # showing PRESENTATION, EXEC_1Pager, Configuration markdowns
-├── sample_data/ # sample aw NYC Taxi datasets including engineeerd data
-├── images/ # screenshots of images on README and PRESENTATION markdowns.
-├── notebooks/ # Fabric notebooks (EDA, Modeling, Prediction)
-├── powerbi/ # Visual reports (PDF exports)
-└── README.md # Project documentation
-```
+* **Observations:** 20,405,666 trips (January 2025 sample — full dataset in original environment)
+* **Elasticity (miles, log–log):** ~**0.70** (aggregate)
+* **Marginal $/mile (levels model):** **~$2.32 / mile**
+* **Segment change (>5 mi):** short-trip miles elasticity ≈ **0.19** → long-trip ≈ **0.34**
 
 ---
 
-## 🔍 1. Exploratory Data Analysis (EDA) 🧮
+## 📋 Executive Summary
 
-### 🧰 Dataset Overview
-- Source: NYC TLC FHV trip data (Jan–Jul 2025)
-- Volume: ~20 million rows/month  
-- Key Columns: pickup/dropoff times, trip distance, duration, total fare, payment type
-
-### 📊 Suggested Plots
-- Fare vs Distance scatter (linear + log scale)  
-- Hourly pickup distribution heatmap  
-- Correlation matrix of continuous features  
-
-### 💡 Insights
-- Distance shows the strongest positive correlation with fare.  
-- Duration correlates moderately, especially in high-traffic hours.  
-- Outliers (zero fares/distances) were removed pre-analysis.  
+This repo contains a **backward-looking explanatory analysis** of NYC For-Hire Vehicle (FHV) trip data. The goal is to quantify how **trip distance** and **trip time** explain the **base passenger fare**, and whether fare responsiveness changes for long trips.
+**Primary takeaway:** distance drives fares more than time, and distance sensitivity increases for longer trips — actionable for pricing strategy, audits, and regulator reviews.
 
 ---
 
-## 🧪 2. Feature Engineering ⚙️
+## 🎯 Objectives
 
-### 🔧 Transformations
-- Derived variables:
-  - `trip_duration` (minutes)
-  - `trip_speed` (mph)
-  - `is_weekend`, `hour_of_day`
-- Applied `log()` transforms to normalize continuous variables:
-  - `log_fare`, `log_distance`, `log_duration`
-- Filtered implausible values (distance < 0.1 or > 50 miles)
-
-### 📊 Suggested Plots
-- Feature distributions before/after log-transform  
-- Boxplots for outlier detection  
-- Correlation heatmap for engineered features  
-
-### 💡 Outcome
-A normalized, cleaned dataset ready for elasticity and regression analysis.
+* Measure the relative influence of **distance** and **time** on base fare.
+* Provide interpretable metrics: **$/mile**, **$/minute**, and **elasticities**.
+* Test whether fare structure differs for **short vs long trips** (interaction models).
+* Deliver business-friendly communication materials and reproducible research artifacts.
 
 ---
 
-## ⚡ 3. Quick Regression Model (Baseline) 🧮
+## 🧭 Analytical Flow (concise)
 
-### 🎯 Objective
-Establish a baseline fit between **fare amount** and **trip distance** using a simple linear regression.
+> Full methodological breakdown is in `reports/analysis_flow.md` (placeholder).
 
-### ⚙️ Model Specification
-\[
-\text{fare\_amount} = \alpha + \beta_1(\text{trip\_distance}) + \epsilon
-\]
+1. **Data prep & quality checks** — validate `trip_miles`, `trip_time`, `base_passenger_fare`; remove invalid rows; small sample available in `sample_data/`.
+2. **Exploratory Data Analysis** — summary stats, scatterplots, and correlations.
+3. **Baseline regression (levels)** — quantify $/mile and $/time (interpretable to ops/finance).
+4. **Elasticity regression (log–log)** — % responsiveness: miles vs time.
+5. **Equality test (Wald)** — formal test: are elasticities equal?
+6. **Interaction test (single breakpoint — e.g., 5 mi)** — does elasticity differ for long trips?
+   **6A. Extended Interaction Model (pooled w/ interactions)** — unified model:
+   log(Fare) = α + β₁log(Miles) + β₂log(Time) + γ·LongDummy + δ₁(log(Miles)×LongDummy) + δ₂(log(Time)×LongDummy)
 
-| Metric | Value |
-|--------|------:|
-| R² | 0.81 |
-| RMSE | 2.95 |
-| Coefficient (β₁) | 2.57 |
 
-### 💡 Interpretation
-- Fare increases roughly linearly with distance, but residuals widen at higher distances.  
-- Indicates heteroscedasticity — variance increases with distance.  
-- Motivates a **log–log model** to stabilize variance and measure elasticity.
+* *Findings from notebook:* short-trip miles elasticity ≈ **0.19**, long-trip ≈ **0.34**; short-trip time ≈ **0.43**, long-trip ≈ **0.33**; intercept shift for long trips ≈ **+0.075**.
 
-### 🎨 Suggested Plots
-- Fare vs Distance scatter + regression line  
-- Residual vs fitted values plot  
-- QQ plot for residual normality  
+7. **Synthesis & communication** — dashboards, one-page executive summary, and reproducible artifacts.
 
 ---
 
-## 📏 4. Log–Log Regression by Trip Distance 📈
+## 📊 Visuals & Artifacts (placeholders)
 
-### 🎯 Objective
-Quantify the **elasticity of fare with respect to trip distance** — how fare changes (%) for a 1% change in distance.
+> I left placeholders so you can add final PNGs / CSVs after re-running the final notebook.
 
-### ⚙️ Model Equation
-\[
-\log(\text{fare\_amount}) = \alpha + \beta_1 \log(\text{trip\_distance}) + \epsilon
-\]
+**Important visuals**
 
-| Metric | Value |
-|--------|------:|
-| R² | **0.88** |
-| RMSE (log scale) | 0.145 |
-| β₁ (Elasticity) | **0.98** |
+* EDA scatter: `images/eda_scatter_miles_fare.png`
+* Elasticities bar chart: `images/elasticity_bar.png`
+* Levels regression coefficients table: `reports/levels_coef_table.csv`
+* Interaction model coefficients: `reports/interaction_coefs.csv`
+* Presentation slides (rendered): `docs/presentation.md` (or PDF in `docs/`)
 
-### 💡 Interpretation
-- A 1% increase in distance yields ~0.98% increase in fare — near-proportional scaling.  
-- High model fit (R² = 0.88) confirms **distance as the dominant structural driver** of fares.  
-
-### 🎨 Suggested Plots
-- `log(fare)` vs `log(distance)` scatter with regression line  
-- Residual vs fitted plot  
-- Distribution of `log(fare)`  
+*(Add your real PNGs to `images/` and CSVs to `reports/`.)*
 
 ---
 
-## ⏱️ 5. Log–Log Regression by Trip Duration 🕒
+## 🏗️ Built on Microsoft Fabric — high-level notes
 
-### 🎯 Objective
-Assess whether **trip duration** explains fare variation as strongly as **trip distance**.
+This analysis was developed on **Microsoft Fabric** trial capacity and leveraged Fabric concepts for enterprise-grade reproducibility:
 
-### ⚙️ Model Equation
-\[
-\log(\text{fare\_amount}) = \alpha + \beta_1 \log(\text{trip\_duration}) + \epsilon
-\]
+* **OneLake** — central storage for datasets and processed outputs (project-managed lake).
+* **Delta Lake** — canonical table format used to ensure consistent results and incremental ETL semantics.
+* **Fabric Notebooks** — interactive environment for EDA, modeling, and visual exports.
+* **Data Pipelines** — Fabric pipelines orchestrated ingestion/transform for production runs (scheduling and refresh).
 
-| Metric | Value |
-|--------|------:|
-| R² | 0.72 |
-| RMSE (log scale) | 0.214 |
-| β₁ (Elasticity) | **0.67** |
-
-### 💡 Interpretation
-- Duration elasticity (0.67) is substantially weaker than distance elasticity (0.98).  
-- Suggests fares are primarily **distance-based**, with time effects contributing secondary adjustments (e.g., traffic, idle time).  
-
-### 🎨 Suggested Plots
-- `log(fare)` vs `log(duration)` regression line  
-- Elasticity comparison bar chart  
+> **Reproducibility note:** This README includes a small `sample_data/` subset so you can reproduce the core notebook locally without a Fabric trial. If you want to re-run on Fabric, import data to OneLake and point the notebook to your workspace.
 
 ---
 
-## ⚖️ 6. Comparative Elasticity Analysis 📊
-
-| Model | Predictor | Elasticity (β₁) | R² | RMSE (log) |
-|--------|------------|----------------:|----:|-------------:|
-| A | Distance | **0.98** | **0.88** | 0.145 |
-| B | Duration | 0.67 | 0.72 | 0.214 |
-
-### 💡 Key Insight
-- **Distance elasticity** dominates across both magnitude and model fit.  
-- **Trip distance** explains nearly **88% of fare variance**, compared to 72% for duration.  
-- Indicates **fare structure is distance-driven**, with **time-based surcharges** playing a secondary role.
-
-### 🎨 Suggested Plot
-Side-by-side log–log scatterplots (distance vs duration), annotated with R² and elasticity values.
-
----
-
-## 🧠 7. Interpretive Summary
-
-| Dimension | Finding |
-|------------|----------|
-| Dominant Variable | **Trip Distance** (β₁ ≈ 0.98) |
-| Secondary Variable | Trip Duration (β₁ ≈ 0.67) |
-| Model Strength | R² = 0.88 for distance-driven model |
-| Implication | Fare structure primarily scales with distance |
-| Analytical Lens | Elasticity-based interpretive modeling (not prediction) |
-
----
-
-## 📊 8. Power BI Visualization 💡
-
-### 🧩 Dashboard Highlights
-- **Fare vs Distance Elasticity** – regression trend visualization  
-- **Distance vs Duration Elasticity Comparison** – dual bar chart  
-- **Model Fit (R²)** comparison tiles  
-- **Residual Analysis** – actual vs fitted log fares  
-
-| Tile | Visualization | Insight |
-|------|---------------|----------|
-| Elasticity | Bar chart (β₁ comparison) | Distance dominates fare structure |
-| Fit Metrics | Card visuals | R² comparison |
-| Log–Log Trend | Scatter plot | Structural scaling confirmation |
-| Residuals | Histogram | Homoscedasticity validation |
-
----
-
-## 🧩 9. Key Takeaways
-
-| Aspect | Insight |
-|--------|----------|
-| Analytical Type | Interpretive regression (elasticity modeling) |
-| Key Question | Which variable better explains base passenger fares? |
-| Answer | **Trip distance** is the stronger predictor (β₁=0.98 vs β₁=0.67) |
-| Data Period | Jan–Jul 2025 |
-| Broader Value | Quantifies structural dynamics of NYC fare system |
-
----
-
-## 🚀 Conclusion
-
-This analysis provides **quantitative proof** that NYC’s base passenger fares scale **nearly proportionally with trip distance**, while **trip time** contributes secondarily through surcharges or congestion effects.  
-
-By leveraging **Microsoft Fabric** for reproducible analytics, this project demonstrates how **elasticity modeling** can transform large-scale mobility data into interpretable economic insights — bridging **data science, transportation economics, and business intelligence**.
-
-> 🧭 “Predictive accuracy matters — but understanding *why* it happens defines real intelligence.”
-
----
-
-## 🏁 Next Steps
-- Test **interaction models** (`log(distance × duration)`)  
-- Extend analysis to **driver pay elasticity**  
-- Visualize elasticity shifts across boroughs and traffic conditions  
-
----
-
-## ✍️ Author
-**Anil “AJ” Jacob**  
-Principal BI & Analytics Leader | Microsoft Fabric | Azure | Power BI | ML  
-📍 Bangalore, India  
-📧 [Aniljacobs@gmail.com](mailto:Aniljacobs@gmail.com)  
-🌐 GitHub: [github.com/aniljacob](#) *(replace with repo link)*
-
----
+## 🧩 Repo structure (recommended)
