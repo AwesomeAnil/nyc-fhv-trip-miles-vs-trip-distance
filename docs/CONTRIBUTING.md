@@ -37,4 +37,55 @@ conda activate fhv_fare_env
 
 # 3. Run notebook
 jupyter notebook notebooks/01_fare_elasticity.ipynb
+```
 For small-scale testing, use the preloaded sample_data/ folder.
+
+---
+
+## 🧪 Testing
+
+If you add code (e.g., helper functions), please include lightweight tests:
+
+pytest tests/
+
+For notebooks, ensure they execute fully with no errors before submitting a PR.
+
+---
+
+## 📸 Visual Assets
+
+All charts and figures belong in /images/.
+Please ensure:
+
+.png or .svg formats (no proprietary file types).
+
+1080px minimum width for clarity on GitHub Pages.
+
+Descriptive file names (e.g., elasticity_bar_plot.png).
+
+---
+
+## 🔍 Pull Request Guidelines
+
+Each PR should address one issue or improvement.
+
+Reference related issues in the PR description.
+
+Include updated visuals/tables if analytical results change.
+
+Keep commits concise and descriptive.
+
+---
+
+## ⚙️ Code of Conduct
+
+All contributors are expected to follow the project’s Code of Conduct
+.
+We foster an inclusive, collaborative, and respectful environment for all participants.
+
+---
+
+## 🏆 Acknowledgement
+
+Your contributions directly advance open, explainable, and fair mobility pricing research.
+Thank you for helping make data science matter for cities.
