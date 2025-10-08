@@ -8,10 +8,11 @@
 
 ## 📌 Key numbers (hero card)
 
-* **Observations:** 20,405,666 trips (January 2025 sample — full dataset in original environment)
-* **Elasticity (miles, log–log):** ~**0.70** (aggregate)
-* **Marginal $/mile (levels model):** **~$2.32 / mile**
-* **Segment change (>5 mi):** short-trip miles elasticity ≈ **0.19** → long-trip ≈ **0.34**
+* **Observations:** 500,000 trips (January 2025 sample — full dataset in original environment)
+* **Elasticity (miles, log–log):** ~**0.3420** (aggregate)
+* * **Elasticity (time, log–log):** ~**0.3787** (aggregate)
+* **Marginal $/mile (levels model):** **~$2.3187 / mile**
+* **Segment change (>5 mi):** short-trip miles elasticity ≈ **0.18** → long-trip ≈ **0.53**
 
 ---
 
@@ -39,13 +40,14 @@ This repo contains a **backward-looking explanatory analysis** of NYC For-Hire V
 2. **Exploratory Data Analysis** — summary stats, scatterplots, and correlations.
 3. **Baseline regression (levels)** — quantify $/mile and $/time (interpretable to ops/finance).
 4. **Elasticity regression (log–log)** — % responsiveness: miles vs time.
-5. **Equality test (Wald)** — formal test: are elasticities equal?
-6. **Interaction test (single breakpoint — e.g., 5 mi)** — does elasticity differ for long trips?
+5. **Elasticity regression looped through distance bins** — plot elastcity of miles vs time across segmented distances.
+6. **Equality test (Wald)** — formal test: are elasticities equal?
+7. **Interaction test (single breakpoint — e.g., 5 mi)** — does elasticity differ for long trips?
    **6A. Extended Interaction Model (pooled w/ interactions)** — unified model:
    log(Fare) = α + β₁log(Miles) + β₂log(Time) + γ·LongDummy + δ₁(log(Miles)×LongDummy) + δ₂(log(Time)×LongDummy)
 
 
-* *Findings from notebook:* short-trip miles elasticity ≈ **0.19**, long-trip ≈ **0.34**; short-trip time ≈ **0.43**, long-trip ≈ **0.33**; intercept shift for long trips ≈ **+0.075**.
+* *Findings from notebook:* short-trip miles elasticity ≈ **0.18**, long-trip ≈ **0.53**; short-trip time ≈ **0.44**, long-trip ≈ **-0.12**; intercept shift for long trips ≈ **+0.075**.
 
 7. **Synthesis & communication** — dashboards, one-page executive summary, and reproducible artifacts.
 
