@@ -50,90 +50,119 @@ Local reproducibility is provided through a trimmed dataset in `sample_data/`.
 ---
 
 ## 💵 5 · Baseline Regression (Levels Model)
-Model form:  
+
+**Model (Linear Form)**  
+
 \[
 Fare = α + β_1 \, Miles + β_2 \, Time + ε
 \]
 
-**Outputs** → `reports/levels_coef_table.csv`
 
-| Term | Coefficient | Std Err | Interpretation |
-|------|--------------|----------|----------------|
-| Miles | ≈ 2.32 | — | +$2.32 per mile holding time fixed |
-| Time | ≈ 0.46 | — | +$0.46 per minute |
-| R² | ≈ 0.76 | — | Strong fit |
+| Term | Coefficient | Interpretation |
+|------|------------|----------------|
+| Intercept | 4.6515 | Base fare when distance & time = 0 |
+| Miles | 2.3187 | Fare change per additional mile |
+| Time | 0.4601 | Fare change per additional minute |
 
-**Business takeaway:** Distance changes explain most fare variance in absolute $ terms.
+**Key Insights**  
+- Distance is the dominant driver (2.32 vs 0.46 per unit).  
+- Duration matters, especially for longer trips.  
+- Baseline fare exists even for zero-mile trips.  
+- Simple linear model captures trends but not elasticities or non-linear effects.
 
 ---
 
 ## 📈 6 · Elasticity Regression (Log–Log Model)
-Model form:  
-\[
-\log(Fare) = α + β_1 \log(Miles) + β_2 \log(Time) + ε
-\]
 
-**Elasticities**
+**Model**  
 
-| Variable | Elasticity | Meaning |
-|-----------|------------|----------|
-| Miles | 0.70 | 1 % ↑ distance ⇒ 0.7 % ↑ fare |
-| Time | 0.24 | 1 % ↑ time ⇒ 0.24 % ↑ fare |
+log(Fare_i) = α + β_miles * log(Miles_i) + β_time * log(Time_i) + ε_i
 
-**Visual placeholder:** `images/elasticity_bar.png`  
 
-**Business insight:** Distance ≈ 3× more impactful than time.
+| Term | Coefficient | Interpretation |
+|------|------------|----------------|
+| α | Intercept | Baseline log-fare |
+| log(Miles) | 0.342 | Elasticity of fare w.r.t distance |
+| log(Time) | 0.379 | Elasticity of fare w.r.t trip duration |
 
----
-
-## ⚖️ 7 · Elasticity Equality Test (Wald)
-**Null Hypothesis (H₀):** β₁ = β₂  
-→ **F ≈ 608, p < 0.001 → Reject H₀.**
-
-**Interpretation:** Distance effect ≫ time effect, statistically and practically.
+**Key Insights**  
+- Fares scale elastically with both distance and time.  
+- Slightly higher sensitivity to time than distance.  
+- Model explains ~75.9% of variation in log-fare (R² ≈ 0.759).  
 
 ---
 
-## 🚦 8 · Interaction / Structural Difference Test
-Model form (5 mi cut-off):  
-\[
-\log(Fare) = α + β_1 \log(Miles) + β_2 \log(Time) + δ [\log(Miles) \times LongTrip]
-\]
-→ F ≈ 9.2 × 10⁵ (p ≈ 0).
+## ⚖️ 7 · Elastic Regression by Distance Bins
 
-**Result:** Long-trip distance elasticity ↑ (≈ 0.34 vs 0.19).  
+| Distance Bin | Miles Elasticity | Time Elasticity | Dominant Driver |
+|--------------|----------------|----------------|----------------|
+| 0–2 mi | 0.04 | 0.41 | Time |
+| 2–5 mi | 0.26 | 0.51 | Time |
+| 5–10 mi | 0.47 | 0.43 | Balanced |
+| 10–20 mi | 0.69 | 0.34 | Distance |
+| 20–50 mi | 0.87 | 0.22 | Distance |
+| 50+ mi | 0.87 | 0.02 | Distance |
 
-**Business meaning:** For trips > 5 mi, each % increase in distance yields greater fare increase.
+**Key Insights**  
+- Time elasticity falls as trip distance increases.  
+- Distance elasticity rises sharply for longer trips.  
+- Fare dynamics transition from time-dominant (<5 mi) to distance-dominant (>10 mi).
 
 ---
 
-## 🧩 9 · Step 6A — Extended Interaction Model (Pooled with Main + Interaction Terms)
-Full form:  
-\[
-\log(Fare) = α + β_1\log(Miles) + β_2\log(Time) + γ LongDummy + δ_1(\log(Miles)\times LongDummy) + δ_2(\log(Time)\times LongDummy)
-\]
+## 🚦 8 · Elastic Regression of Short vs. Long Trips (Interaction Model)
 
-**Key results** → `reports/interaction_coefs.csv`
+**Model**  
 
-| Term | Estimate | Interpretation |
-|-------|-----------|----------------|
-| β₁ log_miles | 0.189 | Short-trip distance elasticity |
-| β₂ log_time | 0.427 | Short-trip time elasticity |
-| γ long_dummy | 0.075 | Baseline fare shift (long trips) |
-| δ₁ interaction | 0.154 | Extra distance elasticity for long trips (→ 0.34 total) |
-| δ₂ interaction | −0.091 | Reduced time elasticity for long trips (→ 0.33 total) |
-| R² | 0.82 | Improved fit |
+log(Fare_i) = beta_0 + beta_1 * log(Miles_i) + beta_2 * log(Time_i) + beta_3 * LongDummy
+              + beta_4 * (log(Miles_i) * LongDummy) + beta_5 * (log(Time_i) * LongDummy) + ε_i
 
-**Findings**
-- Distance elasticity rises from 0.19 → 0.34 for long trips.  
-- Time elasticity drops slightly 0.43 → 0.33.  
-- Intercept shift (+0.075) suggests higher base fare for long segments.
 
-**Business rationale:** confirms tiered fare behavior aligned with operational pricing.
+| Term | Coefficient | Interpretation |
+|------|------------|----------------|
+| Intercept | 1.499 | Baseline log-fare for short trips |
+| log(Miles) | 0.179 | Distance elasticity for short trips |
+| log(Time) | 0.440 | Time elasticity for short trips |
+| long_dummy | -0.608 | Intercept shift for long trips |
+| log(Miles) × long_dummy | 0.533 | Additional distance elasticity for long trips |
+| log(Time) × long_dummy | -0.120 | Reduction in time elasticity for long trips |
 
-**Visual placeholders**
-- `images/interaction_plot.png`  
-- `images/coef_comparison.png`
+**Key Insights**  
+- Distance elasticity rises sharply for long trips (0.18 → 0.71).  
+- Time elasticity drops for long trips (0.44 → 0.32).  
+- Confirms non-linear, trip-length-dependent fare dynamics.  
+- Supports dual fare regimes: time-dominant short trips, distance-dominant long trips.
+
+---
+
+## 🧩 9 · Elastic Regression with >5 Miles Cut-off
+
+**Model**  
+
+log(Fare_i) = beta_0 
+            + beta_1 * log(Miles_i) 
+            + beta_2 * log(Time_i) 
+            + beta_3 * LongDummy
+            + beta_4 * (log(Miles_i) * LongDummy)
+            + beta_5 * (log(Time_i) * LongDummy) 
+            + ε_i
+
+
+| Term | Coefficient | Interpretation |
+|------|------------|----------------|
+| Intercept | 1.499 | Base log-fare for short trips (≤5 mi) |
+| log(Miles) | 0.179 | Miles elasticity for short trips |
+| log(Time) | 0.440 | Time elasticity for short trips |
+| long_dummy | -0.608 | Intercept adjustment for long trips (>5 mi) |
+| log(Miles) × long_dummy | 0.533 | Miles elasticity increment for long trips |
+| log(Time) × long_dummy | -0.120 | Time elasticity change for long trips |
+
+**Key Insights**  
+- Elasticity shifts strongly for trips >5 mi: distance dominates long trips.  
+- Time contribution diminishes for long trips.  
+- Negative long_dummy means lower base fare for long trips, offset by higher distance elasticity.  
+- R² ≈ 0.785, strong explanatory power.  
+- Interactions highly significant; fare sensitivity varies by trip length.
 
 ---
 
@@ -151,7 +180,7 @@ Full form:
 | Distance dominates fare formation | Supports distance-weighted pricing models |
 | Elasticity increases for long trips | Two-tier pricing logic reflected in data |
 | Time effect steady but secondary | Congestion adds incremental cost |
-| Robust model fit (R² ≈ 0.82) | High explanatory power |
+| Robust model fit (R² ≈ 0.785) | High explanatory power |
 
 ---
 
