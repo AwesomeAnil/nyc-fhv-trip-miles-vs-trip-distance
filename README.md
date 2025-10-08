@@ -34,22 +34,24 @@ This repo contains a **backward-looking explanatory analysis** of NYC For-Hire V
 
 ## 🧭 Analytical Flow (concise)
 
-> Full methodological breakdown is in `reports/analysis_flow.md` (placeholder).
+> Full methodological breakdown is in `docs/analysis_flow.md` (placeholder).
 
-1. **Data prep & quality checks** — validate `trip_miles`, `trip_time`, `base_passenger_fare`; remove invalid rows; small sample available in `sample_data/`.
-2. **Exploratory Data Analysis** — summary stats, scatterplots, and correlations.
-3. **Baseline regression (levels)** — quantify $/mile and $/time (interpretable to ops/finance).
-4. **Elasticity regression (log–log)** — % responsiveness: miles vs time.
-5. **Elasticity regression looped through distance bins** — plot elastcity of miles vs time across segmented distances.
-6. **Equality test (Wald)** — formal test: are elasticities equal?
-7. **Interaction test (single breakpoint — e.g., 5 mi)** — does elasticity differ for long trips?
-   **6A. Extended Interaction Model (pooled w/ interactions)** — unified model:
-   log(Fare) = α + β₁log(Miles) + β₂log(Time) + γ·LongDummy + δ₁(log(Miles)×LongDummy) + δ₂(log(Time)×LongDummy)
+### 🧭 Experimental Workflow Summary  
 
-
-* *Findings from notebook:* short-trip miles elasticity ≈ **0.18**, long-trip ≈ **0.53**; short-trip time ≈ **0.44**, long-trip ≈ **-0.12**; intercept shift for long trips ≈ **+0.075**.
-
-7. **Synthesis & communication** — dashboards, one-page executive summary, and reproducible artifacts.
+1. **Data Prep & Validation** — Clean and verify `trip_miles`, `trip_time`, and `base_passenger_fare`; remove invalid records; store reproducible sample in `sample_data/`.  
+2. **Exploratory Data Analysis (EDA)** — Compute descriptive statistics, visualize key distributions, and assess pairwise correlations.  
+3. **Baseline Regression (Levels Model)** — Quantify per-mile (~$2.32) and per-minute (~$0.46) fare effects using a simple linear OLS.  
+4. **Elasticity Regression (Log–Log Model)** — Estimate fare responsiveness: 1% ↑ in miles → 0.34% ↑ fare; 1% ↑ in time → 0.38% ↑ fare.  
+5. **Elasticity by Distance Bins** — Segment by trip length (0–2, 2–5, 5–10, 10–20, 20–50, 50+ mi) to reveal transition from time- to distance-dominated pricing.  
+6. **Interaction Model (Short vs. Long Trips)** — Add `long_dummy` and interactions to capture elasticity shifts beyond 5 mi.  
+7. **Wald Test (Coefficient Equality)** — Strong rejection of equality (p < 0.001) confirms elasticities differ significantly.  
+8. **Extended Interaction Model (Pooled)** — Unified model shows:  
+   • Short-trip distance elasticity ≈ 0.18, time ≈ 0.44  
+   • Long-trip distance elasticity ≈ 0.71, time ≈ 0.32  
+   • Intercept shift ≈ –0.61 → lower long-trip baseline, offset by stronger distance effect  
+   • R² ≈ 0.785 → excellent fit  
+9. **Insights & Communication** — Fare sensitivity transitions from **time-driven** (urban, short trips) to **distance-driven** (highway, long trips); outputs compiled into `reports/` and `images/` for reproducibility.  
+10. **Synthesis & communication** — dashboards, one-page executive summary, and reproducible artifacts.
 
 ---
 
