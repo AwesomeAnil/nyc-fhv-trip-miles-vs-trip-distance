@@ -31,10 +31,10 @@ of how **trip distance** and **trip time** shape the **base passenger fare**.
 |:--|:--|:--|
 | **Trips analyzed** | 20.4 million (June 2025) | Statistically representative NYC sample |
 | **Dominant driver** | Distance | Main determinant of base fares |
-| **Distance elasticity** | 0.70 | 1% more distance → 0.7% higher fare |
-| **Time elasticity** | 0.24 | 1% more time → 0.24% higher fare |
-| **Breakpoint (5 miles)** | +42% distance sensitivity | Long trips priced more aggressively |
-| **R² of model** | 0.82 | Strong explanatory power |
+| **Distance elasticity** | 0.71 | 1% more distance → 0.7% higher fare |
+| **Time elasticity** | 0.32 | 1% more time → 0.32 % higher fare |
+| **Breakpoint (5 miles)** | +71% distance sensitivity (> 5 miles) vs. 0.18% (< 5 miles) | Long trips priced more aggressively |
+| **R² of model** | 0.79 | Strong explanatory power |
 
 ---
 
