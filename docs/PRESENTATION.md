@@ -1,4 +1,4 @@
-![NYC Fare Elasticity Hero](../images/cover_banner.png)
+![Banner](../assets/elasticity_banner.png)
 
 # 🚖 NYC Fare Elasticity — *Fair Fares through Data Science*  
 *An explanatory analysis of how distance and time shape NYC’s For-Hire Vehicle (FHV) fares.*
