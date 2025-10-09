@@ -1,3 +1,5 @@
+![Project Banner](assets/elasticity_banner.png)
+
 # 🚕 NYC Taxi Fare Elasticity Analysis using Microsoft Fabric
 
 ![License](https://img.shields.io/badge/license-MIT-blue) ![Python](https://img.shields.io/badge/python-3.10%2B-green) ![Notebooks](https://img.shields.io/badge/notebooks-Jupyter-orange)
