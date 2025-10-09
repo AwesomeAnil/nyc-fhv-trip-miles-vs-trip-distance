@@ -1,3 +1,5 @@
+![Banner](/assets/elasticity_banner.png)
+
 # 🧭 Executive One-Pager  
 ### 🚕 *NYC For-Hire Vehicle (FHV) Fare Elasticity — Understanding What Drives Urban Fares*
 
