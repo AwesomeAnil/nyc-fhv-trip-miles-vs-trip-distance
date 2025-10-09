@@ -1,6 +1,6 @@
 title: "NYC FHV Fare Elasticity Project"
 description: "An analytical deep dive into pricing dynamics for New York's high-volume for-hire vehicles."
-theme: jekyll-theme-modernist
+theme: jekyll-theme-merlot
 show_downloads: false
 github:
   is_project_page: true
