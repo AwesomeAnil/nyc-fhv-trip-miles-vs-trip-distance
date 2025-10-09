@@ -1,3 +1,5 @@
+![Banner](/assets/elasticity_banner.png)
+
 # 🧭 NYC FHV Fare Elasticity — Full Analysis Flow  
 *A backward-looking investigation of fare determinants in New York City’s For-Hire Vehicle (FHV) industry.*
 
