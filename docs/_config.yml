@@ -4,4 +4,4 @@ theme: jekyll-theme-cayman
 show_downloads: false
 github:
   is_project_page: true
-  repository_url: https://github.com/<your-username>/<your-repo-name>
+  repository_url: https://github.com/AwesomeAnil/nyc-hv-trip-miles-vs-tip-distance
