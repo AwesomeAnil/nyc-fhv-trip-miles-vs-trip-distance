@@ -63,13 +63,21 @@ This repo contains a **backward-looking explanatory analysis** of NYC For-Hire V
 
 **Important visuals**
 
-* EDA scatter: `images/eda_scatter_miles_fare.png`
-* Elasticities bar chart: `images/elasticity_bar.png`
-* Levels regression coefficients table: `reports/levels_coef_table.csv`
-* Interaction model coefficients: `reports/interaction_coefs.csv`
-* Presentation slides (rendered): `docs/presentation.md` (or PDF in `docs/`)
+### * EDA scatter: 
 
-*(Add your real PNGs to `images/` and CSVs to `reports/`.)*
+![Scatterplot](images/scatter_trip_miles_time.png)
+
+#### * Elasticities bar chart:
+
+![Elasticities bar chart](/images/elasticities_comparison.png) 
+
+#### * Levels regression coefficients table:
+
+![Regression Summary](/images/log_regression.png) 
+
+#### * Interaction model coefficients:
+
+![Regression with Interaction terms](/images/regression_interaction.png) 
 
 ---
 
@@ -171,7 +179,7 @@ MIT License — see [`LICENSE`](LICENSE)
 
 ## 📫 Contact
 
-Anil — `anil@example.com` · GitHub: `github.com/<yourusername>`
+Anil — `aniljacobs@gmail.com` · GitHub: `github.com/AwesomeAnil`
 
 ---
 
