@@ -37,7 +37,7 @@ Built entirely on **Microsoft Fabric trial capacity**, leveraging:
 - **Fabric Notebooks** for reproducible analytics  
 - **Data Pipelines** for scheduled refreshes and automation  
 
-We analyzed June 2025 FHV data (~20 million trips), focusing on:
+We analyzed Jan 2025 FHV data (~20 million trips), focusing on:
 `trip_miles`, `trip_time`, and `base_passenger_fare`.
 
 ---
@@ -54,7 +54,7 @@ a natural *tiered pricing pattern* built into the market.
 Each extra minute contributes modestly to fare —  
 reflecting congestion and wait costs rather than distance effort.
 
-![Fare vs Distance Scatter (placeholder)](../images/eda_scatter_miles_fare.png)
+![Fare vs Distance / Time Scatter](../images/scatter_correlations.png)
 
 > *The data tells a clear story: riders pay mainly for distance;  
 time simply fine-tunes fairness.*

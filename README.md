@@ -63,9 +63,9 @@ This repo contains a **backward-looking explanatory analysis** of NYC For-Hire V
 
 **Important visuals**
 
-### * EDA scatter: 
+### * EDA scatter plots and Correlations heatmap: 
 
-![Scatterplot](images/scatter_trip_miles_time.png)
+![Scatterplot](images/scatter_correlations.png)
 
 #### * Elasticities bar chart:
 
