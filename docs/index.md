@@ -36,7 +36,7 @@ This research provides a data-driven view of how NYC’s ride economics behave u
 | **Fit (R²)** | 0.79 |
 | **Tools Used** | Python (Statsmodels, Matplotlib), Power BI (DAX, Visuals), MS Fabric, OneLake, Data Pipelines, Fabric Notebooks |
 
-![Elasticity Plot]([../images/elasticities_distance_bins.png](https://github.com/AwesomeAnil/nyc-fhv-trip-miles-vs-trip-distance/blob/main/images/elasticities_distance_bins.png))
+![Elasticity Plot](elasticities_distance_bins.png)
 
 ---
 
@@ -60,11 +60,10 @@ log_fare = 1.4991 + 0.1788·log_miles + 0.4397·log_time - 0.6076·long_dummy + 
 ## 🧩 Explore the Analysis
 Dive deeper into the analytical chapters:
 
-- [Read me →](https://github.com/AwesomeAnil/nyc-fhv-trip-miles-vs-trip-distance/blob/main/README.md)
-- [1 Page Exec Summary →]([/docs/EXEC_1PAGER.md](https://github.com/AwesomeAnil/nyc-fhv-trip-miles-vs-trip-distance/blob/main/docs/EXEC_1PAGER.md))
-- [Presentation →](https://github.com/AwesomeAnil/nyc-fhv-trip-miles-vs-trip-distance/blob/main/docs/PRESENTATION.md)
-- [Analysis Flow →](https://github.com/AwesomeAnil/nyc-fhv-trip-miles-vs-trip-distance/blob/main/docs/analysis_flow.md)
-- [Contibuting →](https://github.com/AwesomeAnil/nyc-fhv-trip-miles-vs-trip-distance/blob/main/docs/CONTRIBUTING.md)
+- [1 Page Exec Summary →](EXEC_1PAGER.md)
+- [Presentation →](PRESENTATION.md)
+- [Analysis Flow →](analysis_flow.md)
+- [Contibuting →](CONTRIBUTING.md)
 
 Each section includes plots, regression analyses, and contextual notes to interpret findings.
 
