@@ -42,8 +42,8 @@ Local reproducibility is provided through a trimmed dataset in `sample_data/`.
 - Visualize distributions and scatterplots.
 
 **Visual placeholders**
-- `images/eda_hist_trip_miles.png`  
-- `images/eda_scatter_miles_fare.png`
+- ![Scatter plots and Correlations](/images/scatter_correlations.png)
+
 
 **Findings**
 - Distance and time are positively correlated (~0.81).  
@@ -71,6 +71,7 @@ Fare = α + β_1 \, Miles + β_2 \, Time + ε
 - Duration matters, especially for longer trips.  
 - Baseline fare exists even for zero-mile trips.  
 - Simple linear model captures trends but not elasticities or non-linear effects.
+- ![Quick Initial Regression](/images/quick_regression.png)
 
 ---
 
@@ -90,7 +91,9 @@ log(Fare_i) = α + β_miles * log(Miles_i) + β_time * log(Time_i) + ε_i
 **Key Insights**  
 - Fares scale elastically with both distance and time.  
 - Slightly higher sensitivity to time than distance.  
-- Model explains ~75.9% of variation in log-fare (R² ≈ 0.759).  
+- Model explains ~75.9% of variation in log-fare (R² ≈ 0.759).
+- ![log-log regression](/images/log_regression.png)
+- ![Elasticities](/images/elasticities_comparison.png)
 
 ---
 
@@ -109,6 +112,7 @@ log(Fare_i) = α + β_miles * log(Miles_i) + β_time * log(Time_i) + ε_i
 - Time elasticity falls as trip distance increases.  
 - Distance elasticity rises sharply for longer trips.  
 - Fare dynamics transition from time-dominant (<5 mi) to distance-dominant (>10 mi).
+- ![Elasticities table by distance segments](/images/table_elasticities_distance_bins.png)
 
 ---
 
@@ -165,6 +169,7 @@ log(Fare_i) = beta_0
 - Negative long_dummy means lower base fare for long trips, offset by higher distance elasticity.  
 - R² ≈ 0.785, strong explanatory power.  
 - Interactions highly significant; fare sensitivity varies by trip length.
+- ![regression with interaction](/images/regression_interaction.png)
 
 ---
 
