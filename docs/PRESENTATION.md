@@ -82,13 +82,13 @@ time simply fine-tunes fairness.*
 ## 📈 Slide 6 · Visual Insights
 **Elasticity Summary**
 
-![Elasticity Bar Chart (placeholder)](../images/elasticity_bar.png)
+![Elasticity Bar Chart (placeholder)](../images/elasticities_comparison.png)
 
 **Segmented Fare Behavior**
 
-![Long vs Short Trips (placeholder)](../images/interaction_plot.png)
+![Long vs Short Trips (placeholder)](../images/elasticities_distance_bins.png)
 
-*Short trips* → balanced influence of time and distance.  
+*Short trips* → time in traffic dominates
 *Long trips* → distance effect accelerates; time flattens.  
 
 > *Data confirms a two-tier structure — simple, explainable, and fair.*
