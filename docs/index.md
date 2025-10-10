@@ -36,7 +36,7 @@ This research provides a data-driven view of how NYC’s ride economics behave u
 | **Fit (R²)** | 0.79 |
 | **Tools Used** | Python (Statsmodels, Matplotlib), Power BI (DAX, Visuals), MS Fabric, OneLake, Data Pipelines, Fabric Notebooks |
 
-![Elasticity Plot]([elasticities_distance_bins.png)
+![Elasticity Plot](elasticities_distance_bins.png)
 
 ---
 
