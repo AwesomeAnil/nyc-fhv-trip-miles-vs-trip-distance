@@ -111,7 +111,34 @@ time simply fine-tunes fairness.*
 
 ---
 
-## ⚙️ Slide 8 · Why Microsoft Fabric Matters
+## Slide 8: Power BI Reports Overview
+
+### 📊 Interactive Dashboards
+
+Power BI dashboards were built to explore and visualize the NYC hvFHV trip data and surge pricing experiments. Key features include:
+
+- **EDA**
+  - Histograms and Boxplots for Distributions
+  - Correlations Heatmap
+  - Bivariate Scatterplots
+  - Average Fares with drilldown to Weeks and Calendar days.
+  - Descriptive Stats that interact with other visuals
+
+- **Elasticities by Distance Bins**
+  - Average fares by weeks / calendar days 
+  - Segmented view of distance bins, basic stats and Fare driver (time/distance)
+  - Plot of Elasticies of Distance and Time with respect to distance bins
+
+### 📸 Sample Visuals
+
+![Power BI Dashboard - EDA](/powerbi/Elasticities_EDA.pdf)  
+![Power BI Dashboard - Elasticities](/powerbi/Elasticities_by_distance.pdf)
+
+> These dashboards allow stakeholders to interactively explore the experiment results, segment-level outcomes, and revenue insights, supporting data-driven decision-making.
+
+---
+
+## ⚙️ Slide 9 · Why Microsoft Fabric Matters
 A reproducible, enterprise-grade setup:
 
 - **Scalable:** handles tens of millions of rows natively  
@@ -123,7 +150,7 @@ A reproducible, enterprise-grade setup:
 
 ---
 
-## 🚀 Slide 9 · The Road Ahead
+## 🚀 Slide 10 · The Road Ahead
 1. **Expand the scope** — analyze monthly data and borough-level elasticity.  
 2. **Incorporate new features** — driver pay, surge multipliers, traffic metrics.  
 3. **Automate via Fabric pipelines** — elasticity dashboards updated monthly.  
@@ -133,7 +160,7 @@ A reproducible, enterprise-grade setup:
 
 ---
 
-## 🏁 Slide 10 · Closing Message
+## 🏁 Slide 11 · Closing Message
 > **Distance drives value.**  
 > **Transparency drives trust.**  
 > **Data drives fairness.**
